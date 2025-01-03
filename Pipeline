@@ -1,0 +1,349 @@
+
+
+---------- Forwarded message ---------
+From: CHARITHA BALMURI <22wh1a0548@bvrithyderabad.edu.in>
+Date: Fri, Jan 3, 2025, 9:49 AM
+Subject: Devops
+To: <22wh1a0547@bvrithyderabad.edu.in>, DEVI SRI BHUVANA CHARUGUNDLA <22wh1a0545@bvrithyderabad.edu.in>
+
+
+1st
+
+Html code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+    .form-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background-color: #4cae4c;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Register</h2>
+    <form action="#" method="post">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+     
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+     
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+     
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>
+
+-------------------------------------------------------------------------------------------------------------------
+2nd
+
+git init
+git status
+git add .
+git commit -m "initial commit"
+git remote add origin https://github.com/user/repo.git   
+git remote -v
+git push -u origin main  
+git pull origin main
+git log    
+git diff  
+
+---------------------------------------------------------------------------------------------------------------------
+3rd
+
+git init
+git config --global user.name " "
+git config --global user.email
+cd " "
+git init
+git add .
+git commit -m "initial commit"
+git branch -M main
+git remote add origin  ...
+git push -u origin main
+
+----------------------------------------------------------------------------------------------------------------------
+
+4th
+
+Jenkins installlation
+
+---------------------------------------------------------------------------------------------------------------------
+5th
+
+pipeline 
+
+pipeline{
+  agent any
+  stages{
+    stage('Build'){
+      steps{
+        echo 'Building..'
+      }
+    }
+    stage('Test'){
+      steps{
+        echo 'Testing..'
+      }
+    }
+    stage('Deploy'){
+      steps{
+        echo 'Deploying....'
+      }
+    }
+  }
+}
+
+
+---------------------------------------------------------------------------------------------------------------------
+6th
+
+docker --version
+
+docker pull <imageName>
+
+docker images
+
+docker ps
+
+docker ps -a
+
+docker exec -it <containerId> bash
+
+docker stop <containerId>
+
+docker start <containerId>
+
+docker kill <containerId>
+
+docker logs <containerId>
+
+docker system prune -a
+
+
+----------------------------------------------------------------------------------------------------------------------
+7th
+
+
+
+docker build -t foldername .
+docker run -d -p 5000:5000 folder foldername
+
+
+
+dockerfile     (Allfiles)
+
+FROM python:3.8-slim
+WORKDIR /app
+container at /app
+COPY . /app
+RUN pip install  -r requirements.txt
+EXPOSE 5000
+CMD ["python", "app.py"]
+
+
+app.py
+
+from flask import Flask
+app = Flask(_name_)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+if _name_ == '_main_':
+    app.run(host='0.0.0.0', port=5000)
+
+
+
+requirements.txt
+
+Flask>=2.0
+
+
+---------------------------------------------------------------------------------------------------------------------
+8th
+
+kubernetes
+
+
+
+kubectl get nodes
+
+
+--------------------------------------------------------------------------------------------------------------------
+9th
+
+
+deployment.yaml 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    demo: "app"
+  name: podtato-main
+  labels:
+    app: podtato-head
+    name: podtato-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podtato-head
+      name: podtato-main
+  template:
+    metadata:
+      labels:
+        app: podtato-head
+        name: podtato-main
+    spec:
+      imagePullSecrets:
+      - name: my-secret
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: server
+        image: kaleoum/podtato-main:v0.1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000
+        env:
+        - name: PORT
+          value: "9000"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9000
+          initialDelaySeconds: 20
+          periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: podtato-main
+  labels:
+    app: podtato-head
+    name: podtato-main
+spec:
+  selector:
+    app: podtato-head
+    name: podtato-main
+  ports:
+  - name: http
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  type: NodePort
+
+
+commands:
+
+and run this commands in command prompt
+1 kubectl get ns
+2 kubectl config use-context docker-desktop
+3 docker pull kaleoum/podtato-main:v0.1.0
+4 kubectl apply -f "C:\Users\aksha\docker-app\deployment.yaml"
+5 kubectl get po
+6 kubectl port-forward svc/podtato-main 9000:9000
+
+
+---------------------------------------------------------------------------------------------------------------------
+10th
+
+eclipse
+
+--------------------------------------------------------------------------------------------------------------------
+11th
+
+login.js
+
+
+const { Builder, By, until } = require("selenium-webdriver");
+const assert = require("assert");
+async function loginTest() {
+ 
+  let driver = await new Builder().forBrowser("chrome").build();
+  try {
+   
+    await driver.get("https://test-login-app.vercel.app/");
+   
+    await driver.findElement(By.id("email")).sendKeys("test3@gmail.com");
+    await driver.findElement(By.id("password")).sendKeys("Password@12345");
+   
+    await driver.findElement(By.name("login")).click();
+   
+    const pageTitle = await driver.getTitle();
+   
+ assert.strictEqual(pageTitle, "Welcomepage");
+   
+    await driver.wait(until.titleIs("Welcomepage"), 4000);
+  } finally {
+    await driver.quit();
+  }
+}
+loginTest();
+
+push it into selinium 
+
+then run
+
+npm init
+node login.js
+
+----------------------------------------------------------------------------------------------------------------------
+
+
